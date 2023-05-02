@@ -8,6 +8,17 @@ const connection = mysql.createConnection({
     database: 'employees_db'
   });
 
+  const roles = {
+    1: "Sales Lead",
+    2: "Salesperson",
+    3: "Lead Engineer",
+    4: "Software Engineer",
+    5: "Account Manager",
+    6: "Accountant",
+    7: "Legal Team Lead",
+    8: "Lawyer"
+  };
+
   function runProgram(){
     inquirer
     .prompt({
@@ -108,7 +119,10 @@ const connection = mysql.createConnection({
               type: "list",
               name: "role_id",
               message: "What is their role ?",
-              choices: ["1", "2", "3", "4", "5", "6", "7", "8"] 
+              choices: Object.keys(roles).map(key => ({
+                name: `${roles[key]} (${key})`,
+                value: key
+              }))
             },
             {
               type: "list",
@@ -118,7 +132,9 @@ const connection = mysql.createConnection({
             }
           ])
           .then(function(data){
-            connection.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${data.first_name}", "${data.last_name}", ${data.role_id}, ${data.manager_id})`, function(err, result){
+            const roleId = data.role_id;
+            connection.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${data.first_name}", "${data.last_name}", ${roleId}, ${data.manager_id})`, 
+            function(err, result) {
               if (err) throw err;
               console.table(result)
               runProgram()
