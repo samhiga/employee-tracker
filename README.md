@@ -16,7 +16,7 @@
 
 ## Description 
 
-Walkthrough Video [https://drive.google.com/file/d/1z9ssy0UEdhUgxShr56nhTteSMo44JukE/view]
+Please View the Walkthrough Video [https://drive.google.com/file/d/1AZt1NNpJ5JYkw5TOZriS2GYjSnq2EmNv/view]
 
 This program stores employee information in a database. Users can reference the data via the CLI, they see information on different departments, different roles, and employee salaries, among others. They can also add employees, update their roles, add new roles, and add departments.
 
@@ -87,7 +87,7 @@ To use the employee tracker, you must first acquire it through GitHub, see above
 ## Learning Points 
 
 
-Through this project, I got a good chance to use Inquirer again. I also got a good amount of experience working with SQL databases and how to implement them into a project.
+Through this project, I got a good chance to use Inquirer again. I also got a good amount of experience working with SQL and mysql2 databases and how to implement them into a project.
 
 
 ## Author Info
