@@ -141,6 +141,40 @@ const connection = mysql.createConnection({
             })
           })
         }
+        if (answer.task === "Update Employee Role") {
+          connection.query("SELECT id, CONCAT(first_name, ' ', last_name) AS name FROM employee", function(err, result) {
+            if (err) throw err;
+        
+            inquirer
+              .prompt({
+                type: "list",
+                name: "employeeId",
+                message: "Which employee would you like to update?",
+                choices: result.map(row => ({ name: row.name, value: row.id }))
+              })
+              .then(function(employeeAnswer) {
+                connection.query("SELECT * FROM role", function(err, result) {
+                  if (err) throw err;
+        
+                  inquirer
+                    .prompt({
+                      type: "list",
+                      name: "roleId",
+                      message: "What is the new role?",
+                      choices: result.map(row => ({ name: row.title, value: row.id }))
+                    })
+                    .then(function(roleAnswer) {
+                      connection.query(`UPDATE employee SET role_id = ${roleAnswer.roleId} WHERE id = ${employeeAnswer.employeeId}`, function(err, result) {
+                        if (err) throw err;
+        
+                        console.log(`Updated employee ${employeeAnswer.employeeId} with new role ${roleAnswer.roleId}`);
+                        runProgram();
+                      });
+                    });
+                });
+              });
+        });
+        }
         if (answer.task === "Exit"){
           connection.end();
           process.exit(0);
