@@ -34,7 +34,7 @@ const connection = mysql.createConnection({
         "View All Deparments",
         "Add Department",
         "Update Employee Role",
-        "End"]
+        "Exit"]
     })
     .then(function(answer){
         console.log(answer)
@@ -141,6 +141,10 @@ const connection = mysql.createConnection({
             })
           })
         }
+        if (answer.task === "Exit"){
+          connection.end();
+          process.exit(0);
+       }
     })
   }
   runProgram()
